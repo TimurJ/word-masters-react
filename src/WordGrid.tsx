@@ -1,13 +1,28 @@
 import { NUMBER_OF_TRIES } from './constants'
 import WordRow from './WordRow'
+import { useHandleKeyPresses } from './useHandleKeyPresses'
 
-const WordGrid = () => {
-  const rows = []
-  for (let i = 0; i < NUMBER_OF_TRIES; i++) {
-    rows.push(<WordRow rowNum={i} />)
-  }
+interface WordGridProps {
+  wordOfDay: string
+}
 
-  return <div className="words-grid">{rows}</div>
+const WordGrid = ({ wordOfDay }: WordGridProps) => {
+  const { previousWords, guessWord, currentRowIndex } = useHandleKeyPresses(wordOfDay)
+
+  return (
+    <div className="words-grid">
+      {Array.from({ length: NUMBER_OF_TRIES }).map((_, index) => (
+        <WordRow
+          guessWord={guessWord}
+          wordOfDay={wordOfDay}
+          previousWords={previousWords}
+          rowIndex={index}
+          currentRowIndex={currentRowIndex}
+          key={index}
+        />
+      ))}
+    </div>
+  )
 }
 
 export default WordGrid
