@@ -1,11 +1,15 @@
 import './App.css'
+import Header from './Header'
+import { useGetWordOfDay } from './useGetWordOfDay'
 import WordGrid from './WordGrid'
 
 function App() {
+  const wordOfDay = useGetWordOfDay()
+
   return (
     <>
-      <h1 className="header">Word Masters</h1>
-      <WordGrid />
+      <Header />
+      <WordGrid wordOfDay={wordOfDay} />
     </>
   )
 }
